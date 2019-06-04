@@ -1,17 +1,4 @@
-import java.util.Map;
-
 /*
- * @lc app=leetcode id=1 lang=java
- *
- * [1] Two Sum
- *
- * https://leetcode.com/problems/two-sum/description/
- *
- * algorithms
- * Easy (42.73%)
- * Total Accepted:    1.6M
- * Total Submissions: 3.8M
- * Testcase Example:  '[2,7,11,15]\n9'
  *
  * Given an array of integers, return indices of the two numbers such that they
  * add up to a specific target.
@@ -26,8 +13,6 @@ import java.util.Map;
  * 
  * Because nums[0] + nums[1] = 2 + 7 = 9,
  * return [0, 1].
- * 
- * 
  * 
  * 
  */
