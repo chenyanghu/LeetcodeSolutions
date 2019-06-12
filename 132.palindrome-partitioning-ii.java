@@ -4,35 +4,32 @@
  * [132] Palindrome Partitioning II
  */
 class Solution {
-    int min = Integer.MAX_VALUE;
     public int minCut(String s) {
-        List<String> tmp = new ArrayList<String>();
-        dfs(0, tmp, s);
-        return min;
-    }
 
-    private void dfs(int pos, List<String> tmp, String s){
-        if(pos == s.length() && tmp.size() - 1 <= min){
-            min = tmp.size() - 1;
-            return;
-        }
-        
-        for(int i = pos; i < s.length(); i++){
-            if(isPal(s, pos, i)){
-                tmp.add(s.substring(pos, i + 1));
-                dfs(i + 1, tmp, s);
-                tmp.remove(tmp.size() - 1);
+        /**
+         * Key points:
+         * 1. cut[i] : the minimum of cut[j - 1] + 1 (j <= i), if [j, i] is palindrome.
+         * 
+         * 2. DP solution: If [j, i] is palindrome, [j + 1, i - 1] is palindrome, and c[j] == c[i].
+         * 
+         * */
+        char[] c = s.toCharArray();
+        int n = c.length;
+        int[] cut = new int[n];
+        boolean[][] pal = new boolean[n][n];
+
+        for(int i = 0; i < n; i++){
+            int min = i;
+            for(int j = 0; j <= i; j++){
+                if(c[j] == c[i] && (j + 1 > i - 1 || pal[j + 1][i - 1])){
+                    pal[j][i] = true;
+                    min = j == 0 ? 0 : Math.min(min, cut[j - 1] + 1);
+                }
             }
+            cut[i] = min;
         }
-        
-    }
 
-    private boolean isPal(String s, int low, int high){
-        while(low < high){
-            if(s.charAt(low++) != s.charAt(high--))
-                return false;
-        }
-        return true;
+        return cut[n - 1];
     }
 }
 
